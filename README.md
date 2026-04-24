@@ -4,6 +4,15 @@
 
 ---
 
+## ▶️ Chạy chương trình
+
+```bash
+pip install sqlalchemy pyodbc python-dotenv
+python main.py
+```
+
+---
+
 ## 📂 Cấu trúc thư mục
 
 ```text

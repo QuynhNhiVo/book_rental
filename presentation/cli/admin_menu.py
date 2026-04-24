@@ -223,15 +223,38 @@ class AdminMenu:
     def _handle_create_order(self):
         print("\n--- TẠO ĐƠN THUÊ ---")
         try:
-            customer_id = int(input("Nhập ID khách hàng trong database (CustomerID): "))
-            book_ids_str = input("Nhập danh sách ID sách (cách nhau bởi dấu phẩy, VD: 1,3): ")
-            book_ids = [int(id.strip()) for id in book_ids_str.split(",") if id.strip()]
+            # 1. Yêu cầu nhập Mã khách hàng thay vì ID
+            customer_code = input("Nhập Mã khách hàng (VD: C003): ").strip()
+            
+            # Tự động dò tìm CustomerID ẩn bên dưới Database
+            all_customers = self.customer_service.get_all_customers()
+            customer_id = None
+            for c in all_customers:
+                if c.CustomerCode == customer_code:
+                    customer_id = c.CustomerID
+                    break
+            
+            if not customer_id:
+                print(f"❌ Lỗi: Không tìm thấy khách hàng nào có mã '{customer_code}'.")
+                return
+
+            # 2. Nhập Mã sách
+            book_codes_str = input("Nhập danh sách Mã sách cần thuê (cách nhau bởi dấu phẩy, VD: IT01,LIT02): ")
+            book_codes = [code.strip() for code in book_codes_str.split(",") if code.strip()]
+            
+            # 3. Nhập ngày trả
             date_str = input("Nhập ngày dự kiến trả (DD/MM/YYYY): ")
             expected_return_date = datetime.strptime(date_str, "%d/%m/%Y")
 
-            order_code = self.order_service.create_rental_order(customer_id, book_ids, expected_return_date)
+            # 4. Gọi Service để tạo đơn
+            order_code = self.order_service.create_rental_order(
+                customer_id=customer_id, 
+                book_codes=book_codes, 
+                expected_return_date=expected_return_date
+            )
             print(f"✅ Tạo đơn thuê thành công! Mã đơn: {order_code}")
-        except ValueError as e: print(f"❌ Lỗi: {e}")
+        except ValueError as e: 
+            print(f"❌ Lỗi: {e}")
 
     def _handle_view_orders(self):
         orders = self.order_service.get_all_orders()

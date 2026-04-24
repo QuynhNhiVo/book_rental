@@ -6,7 +6,7 @@ class UserModel(Base):
     __tablename__ = 'Users'
     # Dữ liệu
     UserID = Column(Integer, primary_key=True, autoincrement=True)
-    UserName = Column(VARCHAR(50), unique=True, nullable=False)
+    Username = Column(VARCHAR(50), unique=True, nullable=False)
     Password = Column(VARCHAR(100), nullable=False)
     Role = Column(VARCHAR(20), nullable=False)
     CustomerID = Column(Integer, ForeignKey('Customers.CustomerID'), nullable=True)

@@ -3,8 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from config.settings import settings
 from infrastructure.db_models.base import Base
 
-from infrastructure.db_models import base
-
+from infrastructure.db_models import models
 # Tạo Engine
 engine = create_engine(
     settings.DATABASE_URL,

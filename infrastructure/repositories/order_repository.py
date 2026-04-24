@@ -62,3 +62,16 @@ class OrderRepository:
         except Exception as e:
             self.db.rollback()
             return False
+        
+    def get_all(self):
+        return self.db.query(RentalOrderModel).all()
+
+    def get_by_code(self, order_code: str):
+        return self.db.query(RentalOrderModel).filter(RentalOrderModel.OrderCode == order_code).first()
+
+    def get_renting_books_by_customer(self, customer_id: int):
+        """Dùng cho chức năng khách hàng xem sách đang thuê"""
+        return self.db.query(RentalOrderModel).filter(
+            RentalOrderModel.CustomerID == customer_id,
+            RentalOrderModel.OrderStatus == 'Renting'
+        ).all()

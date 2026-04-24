@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from infrastructure.db_models.models import CustomerModel
 from domain.models.customer import Customer
+from sqlalchemy import or_
 
 class CustomerRepository:
     def __init__(self, db_session: Session):
@@ -26,3 +27,14 @@ class CustomerRepository:
         self.db.add(new_customer)
         self.db.commit()
         return new_customer
+    
+    def search_customers(self, keyword: str):
+        """Tìm kiếm khách hàng theo Mã, Tên hoặc Số điện thoại"""
+        # Sử dụng ilike để tìm kiếm không phân biệt hoa thường và chứa từ khóa (LIKE %keyword%)
+        return self.db.query(CustomerModel).filter(
+            or_(
+                CustomerModel.CustomerCode.ilike(f"%{keyword}%"),
+                CustomerModel.FullName.ilike(f"%{keyword}%"),
+                CustomerModel.Phone.ilike(f"%{keyword}%")
+            )
+        ).all()

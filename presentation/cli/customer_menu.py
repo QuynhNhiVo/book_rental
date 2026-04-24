@@ -43,7 +43,8 @@ class CustomerMenu:
             return
         print("\n--- KẾT QUẢ TÌM KIẾM ---")
         for b in books: 
-            print(f"ID Database: {b.BookID} | Mã: {b.BookCode} | Tên: {b.Title} | Tác giả: {b.Author} | TT: {b.BookStatus}")
+            # ĐÃ ẨN ID DATABASE
+            print(f"Mã: {b.BookCode} | Tên: {b.Title} | Tác giả: {b.Author} | TT: {b.BookStatus}")
 
     def _handle_view_books(self):
         books = self.book_service.get_all_books()
@@ -52,30 +53,29 @@ class CustomerMenu:
             return
         print("\n--- DANH SÁCH SÁCH TRONG THƯ VIỆN ---")
         for b in books: 
-            print(f"ID Database: {b.BookID} | Mã: {b.BookCode} | Tên: {b.Title} | Trạng thái: {b.BookStatus}")
+            # ĐÃ ẨN ID DATABASE
+            print(f"Mã: {b.BookCode} | Tên: {b.Title} | Trạng thái: {b.BookStatus}")
 
     def _handle_rent_book(self):
-        """Khách hàng tự tạo đơn thuê [cite: 371]"""
+        """Khách hàng tự tạo đơn thuê bằng Mã Sách"""
         print("\n--- CHỌN THUÊ SÁCH ---")
         
-        # Nếu user này là Customer, chắc chắn phải có customer_id
         if not self.current_user.customer_id:
             print("❌ Lỗi: Tài khoản của bạn chưa được liên kết với hồ sơ khách hàng. Vui lòng liên hệ Admin.")
             return
 
         try:
-            # Nhập danh sách sách
-            book_ids_str = input("Nhập danh sách ID Database sách muốn thuê (cách nhau bởi dấu phẩy, VD: 1,3): ")
-            book_ids = [int(id.strip()) for id in book_ids_str.split(",") if id.strip()]
+            # Nhập Mã Sách
+            book_codes_str = input("Nhập danh sách Mã sách muốn thuê (cách nhau bởi dấu phẩy, VD: IT01,LIT02): ")
+            # Xử lý chuỗi: Loại bỏ khoảng trắng và lấy các mã
+            book_codes = [code.strip() for code in book_codes_str.split(",") if code.strip()]
             
-            # Nhập ngày dự kiến trả
             date_str = input("Nhập ngày dự kiến trả (DD/MM/YYYY): ")
             expected_return_date = datetime.strptime(date_str, "%d/%m/%Y")
 
-            # Tự động lấy ID của chính khách hàng đang đăng nhập
             order_code = self.order_service.create_rental_order(
                 customer_id=self.current_user.customer_id, 
-                book_ids=book_ids, 
+                book_codes=book_codes, # Truyền danh sách mã sách
                 expected_return_date=expected_return_date
             )
             print(f"✅ Tạo đơn thuê thành công! Mã đơn của bạn là: {order_code}. Vui lòng đến quầy nhận sách.")

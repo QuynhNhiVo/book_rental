@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Optional
-from exceptions.business_exception import BusinessException
+from domain.exceptions.business_exception import BusinessException
 
 @dataclass
 class Book:
