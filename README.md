@@ -50,7 +50,7 @@ npm run dev
 
 ## 📘 Tài liệu hỗ trợ
 
-Chúng tôi đã chuẩn bị bộ tài liệu chi tiết để bạn dễ dàng tiếp cận:
+Bộ tài liệu chi tiết để dễ dàng tiếp cận:
 *   [Kiến trúc Backend](./backend/PROJECT_STRUCTURE.md)
 *   [Kiến trúc Frontend](./frontend_react/PROJECT_STRUCTURE.md)
 *   [Tài liệu Kỹ thuật chi tiết (Báo cáo đồ án)](./TECHNICAL_DOCUMENTATION.md)
