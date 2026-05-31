@@ -48,7 +48,7 @@ npm install
 npm run dev
 ```
 
-## 📘 Tài liệu hỗ trợ (Dành cho người mới)
+## 📘 Tài liệu hỗ trợ
 
 Chúng tôi đã chuẩn bị bộ tài liệu chi tiết để bạn dễ dàng tiếp cận:
 *   [Kiến trúc Backend](./backend/PROJECT_STRUCTURE.md)
