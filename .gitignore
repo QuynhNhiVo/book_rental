@@ -1,32 +1,30 @@
-# Virtual Environments
-.venv/
-venv/
-env/
-.env/
-venv*/
-
-# Environment Variables & Local Config
-.env
-*.env
-.env.local
-.env.development
-
-# Log Files
-logs/
-*.log
-
-# Python Cache, Compiled Files, and Extensions
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+venv/
+.venv/
+env/
+.env
+*.log
 
-# 5. IDE and Editor Settings
+# Node.js
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# 6. Local Database Files
-*.sqlite3
-*.db
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+.codegraph/
+backend/.env
+frontend_react/.env
